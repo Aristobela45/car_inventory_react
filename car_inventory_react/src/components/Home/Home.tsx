@@ -3,6 +3,7 @@ import { styled } from '@mui/system';
 import { Button } from '@mui/material';
 import carImage from '../../assets/images/image2.jpg'
 import { Link } from 'react-router-dom';
+
 interface Props {
     title: string;
 }
