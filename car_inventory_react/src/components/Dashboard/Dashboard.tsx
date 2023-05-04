@@ -12,7 +12,11 @@ import {
     Button,
     CssBaseline,
     Box,
-
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight, ChevronLeft } from '@mui/icons-material';
@@ -20,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import { theme } from '../../Theme/themes'
 
 import { DataTable } from '../DataTable';
+import { CarForm } from '../CarForm';
 
 const drawerWidth = 240;
 const myStyles = {
@@ -96,7 +101,8 @@ const myStyles = {
 }
 export const Dashboard = () => {
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false)
 
     const handleDrawerOpen = () => {
         setOpen(true)
@@ -105,6 +111,15 @@ export const Dashboard = () => {
     const handleDrawerClose = () => {
         setOpen(false)
     };
+
+    // handle dialog open/close
+    const handleDialogOpen = () => {
+        setDialogOpen(true)
+    }
+
+    const handleDialogClose = () => {
+        setDialogOpen(false)
+    }
 
     const itemsList = [
         {
@@ -133,7 +148,19 @@ export const Dashboard = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant='h6' noWrap>Dashboard</Typography>
-                    <Button sx={myStyles.toolbar_button}>Create New Drone</Button>
+                    <Button sx={myStyles.toolbar_button} onClick={handleDialogOpen}>Create New Drone</Button>
+                    {/* dialog pop up begins here */}
+                    <Dialog open={dialogOpen} onClose={handleDialogClose} aria-labelledby='form-dialog-title'>
+                        <DialogTitle id="form-dialog-title">Add new Drone</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Enter drone information below</DialogContentText>
+                            <CarForm />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleDialogClose} color='primary'>Cancel</Button>
+                        </DialogActions>
+                    </Dialog>
+
                 </Toolbar>
             </AppBar>
             <MUIDrawer
